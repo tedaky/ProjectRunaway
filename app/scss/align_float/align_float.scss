@@ -1,0 +1,7 @@
+@import "../variables.scss";
+@import "align_float-mixin.scss";
+
+@include make-custom(xs);
+@include make-custom(sm);
+@include make-custom(md);
+@include make-custom(lg);

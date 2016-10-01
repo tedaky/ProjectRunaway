@@ -151,7 +151,7 @@ gulp.task('cache:clear', function (callback) {
 });
 
 var sassdocOptions = {
-    dest: './app/sassdoc'
+    dest: 'app/sassdoc'
 };
 
 gulp.task('sassdoc', function () {

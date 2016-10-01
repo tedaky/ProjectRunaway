@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -8,23 +7,32 @@
     <title>Index</title>
     <!-- build:css css/styles.min.css -->
     <link rel="stylesheet" href="css/scss/grid/grid.css">
+    <link rel="stylesheet" href="css/scss/align_float/align_float.css">
     <!-- endbuild -->
     <!-- build:css css/styles-xs.min.css media="(min-width: 1em)" -->
     <link rel="stylesheet" href="css/scss/grid/grid-xs.css" media="(min-width: 1em)">
+    <link rel="stylesheet" href="css/scss/align_float/align_float-xs.css" media="(min-width: 1em)">
     <!-- endbuild -->
     <!-- build:css css/styles-sm.min.css media="(min-width: 34em)" -->
     <link rel="stylesheet" href="css/scss/grid/grid-sm.css" media="(min-width: 34em)">
+    <link rel="stylesheet" href="css/scss/align_float/align_float-sm.css" media="(min-width: 34em)">
     <!-- endbuild -->
     <!-- build:css css/styles-md.min.css media="(min-width: 48em)" -->
     <link rel="stylesheet" href="css/scss/grid/grid-md.css" media="(min-width: 48em)">
+    <link rel="stylesheet" href="css/scss/align_float/align_float-md.css" media="(min-width: 48em)">
     <!-- endbuild -->
     <!-- build:css css/styles-lg.min.css media="(min-width: 62em)" -->
     <link rel="stylesheet" href="css/scss/grid/grid-lg.css" media="(min-width: 62em)">
+    <link rel="stylesheet" href="css/scss/align_float/align_float-lg.css" media="(min-width: 62em)">
     <!-- endbuild -->
 </head>
 <body>
-    <p>Is this working? <?php echo("Maybe!"); ?></p>
-    <p id="content"></p>
+    <div class="col-md-33">
+        <p>Is this working? <?php echo("Maybe!"); ?></p>
+    </div>
+    <div class="col-md-66">
+        <p id="content"></p>
+    </div>
     <!--build:js js/main.min.js -->
     <script src="javascript/typescript/helloworld.js"></script>
     <script src="javascript/typescript/raytracer.js"></script>
