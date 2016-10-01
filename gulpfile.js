@@ -189,5 +189,5 @@ gulp.task('prod', ['sassdoc'], function () {
         .src(paths.sassinput)
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(autoprefixer(autoprefixerOptions))
-        .pipe(gulp.dest(paths.sassdest));
+        .pipe(gulp.dest(sassdocOptions.dest));
 });

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -23,12 +24,10 @@
 </head>
 <body>
     <p>Is this working? <?php echo("Maybe!"); ?></p>
-    <p>Is this working? <?php echo("Maybe!"); ?></p>
-    <p>Is this working? <?php echo("Maybe!"); ?></p>
-    <p>Is this working? <?php echo("Maybe!"); ?></p>
+    <p id="content"></p>
     <!--build:js js/main.min.js -->
-    <script src="javascript/typescript/main.js"></script>
-    <script src="javascript/typescript/greet.js"></script>
+    <script src="javascript/typescript/helloworld.js"></script>
+    <script src="javascript/typescript/raytracer.js"></script>
     <!-- endbuild -->
 </body>
 </html>
