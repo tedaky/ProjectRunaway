@@ -27,12 +27,14 @@
     <!-- endbuild -->
 </head>
 <body>
-    <div class="col-md-33">
-        <p>Is this working? <?php echo("Maybe!"); ?></p>
-    </div>
-    <div class="col-md-66">
-        <p id="content"></p>
-    </div>
+    <div class="row"><?php
+        ?><div class="col-sm-50 col-lg-33">
+            <p>Is this working? <?php echo("Maybe!"); ?></p>
+        </div><?php
+        ?><div class="col-sm-50 col-lg-66">
+            <p id="content"></p>
+        </div><?php
+    ?></div>
     <!--build:js js/main.min.js -->
     <script src="javascript/typescript/helloworld.js"></script>
     <script src="javascript/typescript/raytracer.js"></script>

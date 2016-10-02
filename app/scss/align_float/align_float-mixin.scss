@@ -1,6 +1,6 @@
 @mixin calc-class-value($name, $class, $css, $value) {
     .#{$name}-#{$class} {
-        #{$css}: #{$value};
+        #{$css}: $value;
     }
 }
 
@@ -9,5 +9,14 @@
 }
 
 @mixin make-custom($class) {
-    @include loop-class-value(pullleft, $class, float, left);
+    @include loop-class-value(pull-left, $class, float, left);
+    @include loop-class-value(pull-right, $class, float, right);
+    @include loop-class-value(pull-none, $class, float, none);
+    @include loop-class-value(top, $class, vertical-align, top);
+    @include loop-class-value(middle, $class, vertical-align, middle);
+    @include loop-class-value(bottom, $class, vertical-align, bottom);
+    @include loop-class-value(left, $class, text-align, left);
+    @include loop-class-value(center, $class, text-align, center);
+    @include loop-class-value(right, $class, text-align, right);
+    @include loop-class-value(justify, $class, text-align, justify);
 }
