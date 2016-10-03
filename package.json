@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/tedaky/ProjectRunaway.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tedaky/ProjectRunaway.git"
   },
   "author": "Eric Tiedeken",
   "license": "ISC",
@@ -27,7 +27,9 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^3.0.1",
     "gulp-uglify": "^2.0.0",
+    "gulp-uncss": "^1.0.6",
     "gulp-useref": "^3.1.2",
+    "purify-css": "^1.1.9",
     "run-sequence": "^1.2.2",
     "sassdoc": "^2.1.20",
     "tslint": "^3.15.1",

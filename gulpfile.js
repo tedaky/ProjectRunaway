@@ -16,8 +16,13 @@ var runSequence = require('run-sequence');
 var sassdoc = require('sassdoc');
 var connect = require('gulp-connect-php');
 var ts = require("gulp-typescript");
+var uncss = require('gulp-uncss');
+var concat = require('gulp-concat');
+var purify = require('purify-css');
 
 var paths = {
+    cssdest: "app/css",
+
     sassinput: "app/scss/**/*.scss",
     sassdest: "app/css/scss",
 
@@ -87,7 +92,7 @@ gulp.task('less', function() {
         .pipe(less())
         .pipe(sourcemaps.init())
         .pipe(sourcemaps.write())
-        .pipe(autoprefixer(autoprefixerOptions))
+        .pipe(autoprefixer())
         .pipe(gulp.dest(paths.lessdest))
         .pipe(browserSync.reload({
             stream: true
@@ -101,7 +106,7 @@ gulp.task('sass', function() {
         .pipe(sourcemaps.init())
         .pipe(sass(sassOptions).on('error', sass.logError))
         .pipe(sourcemaps.write())
-        .pipe(autoprefixer(autoprefixerOptions))
+        .pipe(autoprefixer())
         .pipe(gulp.dest(paths.sassdest))
         .pipe(sassdoc())
         .pipe(browserSync.reload({
@@ -111,7 +116,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('useref', function() {
-    return gulp.src('app/index.*')
+    return gulp.src(['app/**/*.php', 'app/.htaccess'])
         .pipe(useref())
         .pipe(gulpIf('*.js', uglify()))
         .pipe(gulpIf('*.css', cssnano()))
@@ -159,6 +164,24 @@ gulp.task('sassdoc', function () {
         .src(paths.sassinput)
         .pipe(sassdoc(sassdocOptions))
         .resume();
+});
+
+// doesn't work on server languages'
+gulp.task('uncss', function () {
+    return gulp.src('dist/css/**/*.css')
+        .pipe(uncss({
+            html: ['http://localhost:8080']
+        }))
+        .pipe(cssnano())
+        .pipe(gulp.dest('dist/css'));
+});
+
+
+// not working right now
+gulp.task('purify', function() {
+    return gulp.src('app/css/**/*.css')
+        .pipe(purify(['app/**/*.js', 'app/**/*.php']))
+        .pipe(gulp.dest('dist'));
 });
 
 // watch file changes
