@@ -170,7 +170,8 @@ gulp.task('sassdoc', function () {
 gulp.task('uncss', function () {
     return gulp.src('dist/css/**/*.css')
         .pipe(uncss({
-            html: ['http://localhost:8080']
+            html: ['http://localhost:8080'],
+            ignore: []
         }))
         .pipe(cssnano())
         .pipe(gulp.dest('dist/css'));

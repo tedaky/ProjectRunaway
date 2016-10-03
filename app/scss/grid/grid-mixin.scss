@@ -13,6 +13,9 @@
                 display: table-cell;
                 vertical-align: middle;
             }
+            .col-#{$class}-#{$index} {
+                width: percentage($index / $col);
+            }
         } @else {
             .col-#{$class}-#{$index} {
                 width: percentage($index / $col);

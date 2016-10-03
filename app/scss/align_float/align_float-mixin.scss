@@ -9,9 +9,9 @@
 }
 
 @mixin make-custom($class) {
-    @include loop-class-value(pull-left, $class, float, left);
-    @include loop-class-value(pull-right, $class, float, right);
-    @include loop-class-value(pull-none, $class, float, none);
+    @include loop-class-value(float-left, $class, float, left);
+    @include loop-class-value(float-right, $class, float, right);
+    @include loop-class-value(float-none, $class, float, none);
     @include loop-class-value(top, $class, vertical-align, top);
     @include loop-class-value(middle, $class, vertical-align, middle);
     @include loop-class-value(bottom, $class, vertical-align, bottom);
