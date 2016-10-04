@@ -192,7 +192,7 @@ gulp.task('default', function (callback) {
 
 // build distribution
 gulp.task('build', function (callback) {
-    runSequence('clean:dist', 'sass', 'less', 'typescript', ['useref', 'images', 'fonts'], callback);
+    runSequence('clean:dist', 'sass', 'less', 'typescript', ['useref', 'images', 'fonts'], 'uncss', callback);
 });
 
 // Run build connection
