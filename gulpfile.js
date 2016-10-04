@@ -17,8 +17,6 @@ var sassdoc = require('sassdoc');
 var connect = require('gulp-connect-php');
 var ts = require("gulp-typescript");
 var uncss = require('gulp-uncss');
-var concat = require('gulp-concat');
-var purify = require('purify-css');
 
 var paths = {
     cssdest: "app/css",
@@ -55,7 +53,7 @@ gulp.task('browserSync', ['connect'], function() {
     browserSync.init({
         proxy: '127.0.0.1:8010',
         port: 8080,
-        open: true,
+        open: false,
         notify: false
     });
 });
@@ -65,7 +63,7 @@ gulp.task('browserSync-build', ['connect-build'], function() {
     browserSync.init({
         proxy: '127.0.0.1:8010',
         port: 8080,
-        open: true,
+        open: false,
         notify: false
     });
 });
@@ -116,7 +114,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('useref', function() {
-    return gulp.src(['app/**/*.php', 'app/.htaccess'])
+    return gulp.src(['app/**/*.php', 'app/.htaccess', 'app/web.config'])
         .pipe(useref())
         .pipe(gulpIf('*.js', uglify()))
         .pipe(gulpIf('*.css', cssnano()))
@@ -170,19 +168,11 @@ gulp.task('sassdoc', function () {
 gulp.task('uncss', function () {
     return gulp.src('dist/css/**/*.css')
         .pipe(uncss({
-            html: ['http://localhost:8080'],
+            html: ['dist/**/*.php'],
             ignore: []
         }))
         .pipe(cssnano())
         .pipe(gulp.dest('dist/css'));
-});
-
-
-// not working right now
-gulp.task('purify', function() {
-    return gulp.src('app/css/**/*.css')
-        .pipe(purify(['app/**/*.js', 'app/**/*.php']))
-        .pipe(gulp.dest('dist'));
 });
 
 // watch file changes
