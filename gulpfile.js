@@ -17,19 +17,30 @@ var sassdoc = require('sassdoc');
 var connect = require('gulp-connect-php');
 var ts = require("gulp-typescript");
 var uncss = require('gulp-uncss');
+var haml = require('gulp-haml');
 
 var paths = {
-    cssdest: "app/css",
+    cssdest: "app/public/css",
 
-    sassinput: "app/scss/**/*.scss",
-    sassdest: "app/css/scss",
+    sassinput: "app/source/scss/**/*.scss",
+    sassdest: "app/public/css/scss",
 
-    lessinput: "app/less/**/*.less",
-    lessdest: "app/css/less",
+    lessinput: "app/source/less/**/*.less",
+    lessdest: "app/public/css/less",
 
-    tsinput: "app/typescript/**/*.ts",
-    tsdest: "app/javascript/typescript"
+    tsinput: "app/source/typescript/**/*.ts",
+    tsdest: "app/public/javascript/typescript",
+    
+    hamlinput: "app/source/haml/**/*.haml",
+    hamldest: "app/public"
 };
+
+gulp.task('haml', function () {
+  gulp.src(paths.hamlinput)
+    .pipe(haml({ext: '.php'}))
+    //.pipe(gulp.dest(paths.hamldest));
+    .pipe(gulp.dest("app/php"));
+});
 
 var tsproject = ts.createProject("tsconfig.json");
 gulp.task('typescript', function(){
@@ -40,12 +51,12 @@ gulp.task('typescript', function(){
 
 // dev connection
 gulp.task('connect', function() {
-    connect.server({ base: 'app', port: 8010, keepalive: true});
+    connect.server({ base: 'app/public', port: 8010, keepalive: true});
 });
 
 // Run build connection
 gulp.task('connect-build', function() {
-    connect.server({ base: 'dist', port: 8010, keepalive: true});
+    connect.server({ base: 'dist/public', port: 8010, keepalive: true});
 });
 
 // dev browserSync
@@ -114,26 +125,26 @@ gulp.task('sass', function() {
 });
 
 gulp.task('useref', function() {
-    return gulp.src(['app/**/*.php', 'app/.htaccess', 'app/web.config'])
+    return gulp.src(['app/**/*.php', 'app/public/.htaccess', 'app/public/web.config'])
         .pipe(useref())
         .pipe(gulpIf('*.js', uglify()))
         .pipe(gulpIf('*.css', cssnano()))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/public'));
 });
 
 // optimize images
 gulp.task('images', function() {
-    return gulp.src('app/images/**/*.+(png|jpg|jpeg|gif|svg)')
+    return gulp.src('app/public/images/**/*.+(png|jpg|jpeg|gif|svg)')
         .pipe(cache(imagemin({
             interlaced: true
         })))
-        .pipe(gulp.dest('dist/images'));
+        .pipe(gulp.dest('dist/public/images'));
 });
 
 // distribute fonts
 gulp.task('fonts', function() {
-    return gulp.src('app/fonts/**/*')
-        .pipe(gulp.dest('dist/fonts'));
+    return gulp.src('app/public/fonts/**/*')
+        .pipe(gulp.dest('dist/public/fonts'));
 });
 
 // clean project
@@ -166,33 +177,33 @@ gulp.task('sassdoc', function () {
 
 // doesn't work on server languages'
 gulp.task('uncss', function () {
-    return gulp.src('dist/css/**/*.css')
+    return gulp.src('dist/public/css/**/*.css')
         .pipe(uncss({
-            html: ['dist/**/*.php'],
+            html: ['dist/public/**/*.php'],
             ignore: []
         }))
         .pipe(cssnano())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest('dist/public/css'));
 });
 
 // watch file changes
-gulp.task('watch', ['browserSync', 'sass', 'less', 'typescript'], function () {
+gulp.task('watch', ['browserSync', '', 'sass', 'less', 'typescript'], function () {
     gulp.watch(paths.sassinput, ['sass']);
     gulp.watch(paths.lessinput, ['less']);
     gulp.watch(paths.tsinput, ['typescript']);
     gulp.watch('app/*.html', browserSync.reload);
     gulp.watch('app/*.php', browserSync.reload);
-    gulp.watch('app/javascript/**/*.js', browserSync.reload);
+    gulp.watch('app/public/javascript/**/*.js', browserSync.reload);
 });
 
 // default gulp | starts dev web server
 gulp.task('default', function (callback) {
-    runSequence(['sass', 'less', 'typescript', 'browserSync', 'watch'], callback);
+    runSequence(['haml', 'sass', 'less', 'typescript', 'browserSync', 'watch'], callback);
 });
 
 // build distribution
 gulp.task('build', function (callback) {
-    runSequence('clean:dist', 'sass', 'less', 'typescript', ['useref', 'images', 'fonts'], 'uncss', callback);
+    runSequence('clean:dist', 'haml', 'sass', 'less', 'typescript', ['useref', 'images', 'fonts'], 'uncss', callback);
 });
 
 // Run build connection
