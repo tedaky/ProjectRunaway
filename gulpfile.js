@@ -79,6 +79,24 @@ gulp.task('browserSync-build', ['connect-build'], function() {
     });
 });
 
+// libs
+gulp.task('libs', function() {
+    return gulp.src('app/Libs/**/*.php')
+        .pipe(gulp.dest('dist/Libs'));
+});
+
+// controllers
+gulp.task('controllers', function() {
+    return gulp.src('app/Controllers/**/*.php')
+        .pipe(gulp.dest('dist/Controllers'));
+});
+
+// models
+gulp.task('models', function() {
+    return gulp.src('app/Models/**/*.php')
+        .pipe(gulp.dest('dist/Models'));
+});
+
 var autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
 };
@@ -125,8 +143,8 @@ gulp.task('sass', function() {
 });
 
 gulp.task('useref', function() {
-    return gulp.src(['app/**/*.php', 'app/public/.htaccess', 'app/public/web.config'])
-        .pipe(useref())
+    return gulp.src(['app/public/**/*.php', 'app/public/.htaccess', 'app/public/web.config'])
+        .pipe(useref({ searchPath: 'app/public/' }))
         .pipe(gulpIf('*.js', uglify()))
         .pipe(gulpIf('*.css', cssnano()))
         .pipe(gulp.dest('dist/public'));
@@ -171,7 +189,7 @@ var sassdocOptions = {
 gulp.task('sassdoc', function () {
     return gulp
         .src(paths.sassinput)
-        .pipe(sassdoc(sassdocOptions))
+        .pipe(sassdoc(sassdocOptions.dest))
         .resume();
 });
 
@@ -187,12 +205,12 @@ gulp.task('uncss', function () {
 });
 
 // watch file changes
-gulp.task('watch', ['browserSync', '', 'sass', 'less', 'typescript'], function () {
+gulp.task('watch', ['browserSync', 'haml', 'sass', 'less', 'typescript'], function () {
     gulp.watch(paths.sassinput, ['sass']);
     gulp.watch(paths.lessinput, ['less']);
     gulp.watch(paths.tsinput, ['typescript']);
-    gulp.watch('app/*.html', browserSync.reload);
-    gulp.watch('app/*.php', browserSync.reload);
+    gulp.watch('app/public/**/*.html', browserSync.reload);
+    gulp.watch('app/public/**/*.php', browserSync.reload);
     gulp.watch('app/public/javascript/**/*.js', browserSync.reload);
 });
 
@@ -203,7 +221,7 @@ gulp.task('default', function (callback) {
 
 // build distribution
 gulp.task('build', function (callback) {
-    runSequence('clean:dist', 'haml', 'sass', 'less', 'typescript', ['useref', 'images', 'fonts'], 'uncss', callback);
+    runSequence('clean:dist', 'haml', 'sass', 'less', 'typescript', ['useref', 'images', 'fonts'], 'libs', 'controllers', 'models', 'uncss', callback);
 });
 
 // Run build connection
