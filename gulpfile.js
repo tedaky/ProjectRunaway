@@ -97,6 +97,12 @@ gulp.task('models', function() {
         .pipe(gulp.dest('dist/Models'));
 });
 
+// app views
+gulp.task('app-views', function() {
+    return gulp.src('app/Views/**/*.php')
+        .pipe(gulp.dest('app/public/Views'));
+});
+
 var autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
 };
@@ -216,10 +222,10 @@ gulp.task('watch', ['browserSync', 'haml', 'sass', 'less', 'typescript'], functi
 
 // default gulp | starts dev web server
 gulp.task('default', function (callback) {
-    runSequence(['haml', 'sass', 'less', 'typescript', 'browserSync', 'watch'], callback);
+    runSequence(['haml', 'sass', 'less', 'app-views', 'typescript', 'browserSync', 'watch'], callback);
 });
 
-// build distribution
+// build distribution | Run gulp default first | Move Views folder out of public folder after build is complete
 gulp.task('build', function (callback) {
     runSequence('clean:dist', 'haml', 'sass', 'less', 'typescript', ['useref', 'images', 'fonts'], 'libs', 'controllers', 'models', 'uncss', callback);
 });
