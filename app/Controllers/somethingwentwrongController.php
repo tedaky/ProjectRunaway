@@ -1,17 +1,17 @@
 <?php
 
     /**
-    * Home Controller
+    * Error Controller
     */
-    class Home {
+    class SomethingWentWrong {
         function __construct()
         {
-            echo("We are in the Home Controller");
+            header("HTTP/1.0 404 Not Found");
         }
         
         public function Index($value = "")
         {
-            echo("We are in Index " . $value);
+            return include("../Views/index.php");
         }
     }
 
