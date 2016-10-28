@@ -1,0 +1,2 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>Index</title>  <?php      require_once('head.php');  ?></head><body data-app="start" class="content" id="me"><div class="content second">  <?php       include_once('content.php');      include_once('javascript.php');  ?></div></body></html>

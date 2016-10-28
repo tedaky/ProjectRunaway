@@ -1,0 +1,13 @@
+!!! 5
+%html{ lang: "en" }
+    %head
+        %title Index
+        <?php
+            require_once('head.php');
+        ?>
+    %body#me.content{ data-app: "start" }
+        .content.second
+            <?php 
+                include_once('content.php');
+                include_once('javascript.php');
+            ?>
