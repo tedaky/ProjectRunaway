@@ -8,11 +8,13 @@
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-l
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-l
     RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
 
     # Handle Authorization Header
@@ -68,6 +70,7 @@
     <filesMatch ".(css|js|x?html?|php)$">
         Header set Cache-Control "max-age=7884000, public"
     </filesMatch>
+</ifModule>
 <ifModule mod_headers.c>
     Header unset ETag
 </ifModule>
