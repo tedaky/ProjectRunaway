@@ -1,5 +1,5 @@
 <?php
 
-    require_once("../Libs/Controller.php");
+    require_once('../Libs/Autoload.php');
 
 ?>

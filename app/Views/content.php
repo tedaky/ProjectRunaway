@@ -5,7 +5,7 @@
             $i = 0;
             for ( ; $i < 5; $i++) {
             ?>
-            <p>Is this working? <?php echo("Maybe!"); ?></p>
+            <p>Is this working? <?php echo('Maybe!'); ?></p>
             <?php
             }
             ?>

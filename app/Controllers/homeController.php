@@ -3,15 +3,15 @@
     /**
     * Home Controller
     */
-    class Home {
+    class Home extends Controller {
         function __construct()
         {
-            echo("We are in the Home Controller");
+            parent::__construct();
         }
         
-        public function Index($value = "")
+        public function Index($value = '')
         {
-            echo("We are in Index " . $value);
+            $this->view->render('index');
         }
     }
 

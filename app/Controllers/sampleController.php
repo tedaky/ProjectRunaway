@@ -3,16 +3,15 @@
     /**
     * Sample Controller
     */
-    class Sample {
+    class Sample extends Controller {
         function __construct()
         {
-            //echo("We are in the Sample Controller");
+            parent::__construct();
         }
         
-        public function Index($value = "")
+        public function Index($value = '')
         {
-            //echo("We are in Index " . $value);
-            return include("../Views/Index.php");
+            $this->view->render('index');
         }
     }
 

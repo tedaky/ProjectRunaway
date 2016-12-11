@@ -3,15 +3,17 @@
     /**
     * Error Controller
     */
-    class SomethingWentWrong {
+    class SomethingWentWrong extends Controller {
         function __construct()
         {
-            header("HTTP/1.0 404 Not Found");
+            parent::__construct();
         }
         
-        public function Index($value = "")
+        public function Index($value = '')
         {
-            return include("../Views/index.php");
+            header('HTTP/1.0 404 Not Found');
+
+            $this->view->render('error/index');
         }
     }
 
